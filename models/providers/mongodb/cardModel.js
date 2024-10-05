@@ -1,0 +1,8 @@
+import { Schema } from "mongoose";
+import model from "./model";
+
+const schema = new Schema({
+
+});
+
+export const { Model, find, findById, add, edit, remove } = model("card", schema);
