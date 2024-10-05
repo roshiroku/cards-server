@@ -1,5 +1,5 @@
-import { db } from "../config";
-import * as mongodb from "./providers/mongodb/cardModel";
+import { db } from "../config.js";
+import * as mongodb from "./providers/mongodb/cardModel.js";
 
 const providers = { mongodb };
 const Card = providers[db.provider];

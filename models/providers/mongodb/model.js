@@ -1,5 +1,5 @@
 import { model } from "mongoose";
-import { createError } from "../../../utils/errorUtils";
+import { createError } from "../../../utils/errorUtils.js";
 
 export default function (name, schema) {
   const Model = model(name, schema);

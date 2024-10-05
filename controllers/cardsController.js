@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { errorBoundary } from "../utils/errorUtils";
-import Card from "../models/Card";
-import { validateCard } from "../validation/cardsValidation";
-import auth from "../middleware/authMiddleware";
-import { isCardOwnerMiddleware as cardOwner, isCardOwnerOrAdminMiddleware as cardOwnerOrAdmin, loadCardMiddleware as loadCard } from "../middleware/cardsMiddleware";
-import { isBusinessMiddleware as business } from "../middleware/authorizeMiddleware";
+import { errorBoundary } from "../utils/errorUtils.js";
+import Card from "../models/Card.js";
+import { validateCard } from "../validation/cardsValidation.js";
+import auth from "../middleware/authMiddleware.js";
+import { isCardOwnerMiddleware as cardOwner, isCardOwnerOrAdminMiddleware as cardOwnerOrAdmin, loadCardMiddleware as loadCard } from "../middleware/cardsMiddleware.js";
+import { isBusinessMiddleware as business } from "../middleware/authorizeMiddleware.js";
 
 const cardsController = Router();
 

@@ -1,5 +1,5 @@
 import morgan from "morgan";
-import { now } from "../../utils/timeUtils";
+import { now } from "../../utils/timeUtils.js";
 import chalk from "chalk";
 
 const success = chalk.cyanBright;

@@ -1,5 +1,5 @@
-import { errorBoundary, errorUnauthorized } from "../utils/errorUtils";
-import { auth } from "./authMiddleware";
+import { errorBoundary, errorUnauthorized } from "../utils/errorUtils.js";
+import { auth } from "./authMiddleware.js";
 
 export default function authorizeMiddleware(authorize) {
   return errorBoundary(async (req, res) => {

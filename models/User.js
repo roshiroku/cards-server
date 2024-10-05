@@ -1,7 +1,7 @@
-import { generateToken } from "../auth/authProvider";
-import { db } from "../config";
-import { pick } from "../utils/objectUtils";
-import * as mongodb from "./providers/mongodb/userModel";
+import { generateToken } from "../auth/authProvider.js";
+import { db } from "../config.js";
+import { pick } from "../utils/objectUtils.js";
+import * as mongodb from "./providers/mongodb/userModel.js";
 import bcryptjs from "bcryptjs";
 
 const providers = { mongodb };

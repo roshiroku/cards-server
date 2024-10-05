@@ -1,10 +1,10 @@
 import { Router } from "express";
-import User from "../models/User";
-import { errorBoundary, errorUnauthenticated } from "../utils/errorUtils";
-import { validateLogin, validateRegister, validateUpdateProfile } from "../validation/usersValidation";
-import { omit, pick } from "../utils/objectUtils";
-import { isAdminMiddleware as admin } from "../middleware/authorizeMiddleware";
-import { loadUserMiddleware as loadUser, isProfileOwnerMiddleware as profileOwner, isProfileOwnerOrAdminMiddleware as profileOwnerOrAdmin } from "../middleware/usersMiddleware";
+import User from "../models/User.js";
+import { errorBoundary, errorUnauthenticated } from "../utils/errorUtils.js";
+import { validateLogin, validateRegister, validateUpdateProfile } from "../validation/usersValidation.js";
+import { omit, pick } from "../utils/objectUtils.js";
+import { isAdminMiddleware as admin } from "../middleware/authorizeMiddleware.js";
+import { loadUserMiddleware as loadUser, isProfileOwnerMiddleware as profileOwner, isProfileOwnerOrAdminMiddleware as profileOwnerOrAdmin } from "../middleware/usersMiddleware.js";
 
 const usersController = Router();
 

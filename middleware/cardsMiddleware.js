@@ -1,7 +1,7 @@
-import Card from "../models/Card";
-import { errorBoundary, errorNotFound } from "../utils/errorUtils";
-import { auth } from "./authMiddleware";
-import authorizeMiddleware, { isAdmin } from "./authorizeMiddleware";
+import Card from "../models/Card.js";
+import { errorBoundary, errorNotFound } from "../utils/errorUtils.js";
+import { auth } from "./authMiddleware.js";
+import authorizeMiddleware, { isAdmin } from "./authorizeMiddleware.js";
 
 export const loadCardMiddleware = errorBoundary(async (req, res) => {
   const card = await Card.findById(req.params.id);

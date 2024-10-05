@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { email, handleError, image, number, phone, string, url } from "./schema";
+import { email, handleError, image, number, phone, string, url } from "./schema.js";
 
 export const cardSchema = {
   title: string(true),

@@ -1,5 +1,5 @@
-import { errorBoundary, errorUnauthenticated } from "../utils/errorUtils";
-import { verifyToken } from "../auth/authProvider";
+import { errorBoundary, errorUnauthenticated } from "../utils/errorUtils.js";
+import { verifyToken } from "../auth/authProvider.js";
 
 export default errorBoundary((req, res) => {
   const user = auth(req, res);

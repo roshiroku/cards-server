@@ -1,5 +1,5 @@
 import { Schema } from "mongoose";
-import model from "./model";
+import model from "./model.js";
 
 const schema = new Schema({
 

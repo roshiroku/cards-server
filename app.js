@@ -1,10 +1,10 @@
 import express from "express";
-import error from "./middleware/errorMiddleware";
-import { connect } from "./db/dbProvider";
-import usersController from "./controllers/usersController";
-import cardsController from "./controllers/cardsController";
-import cors from "./middleware/corsMiddleware";
-import loggingProvider from "./logging/loggingProvider";
+import error from "./middleware/errorMiddleware.js";
+import { connect } from "./db/dbProvider.js";
+import usersController from "./controllers/usersController.js";
+import cardsController from "./controllers/cardsController.js";
+import cors from "./middleware/corsMiddleware.js";
+import loggingProvider from "./logging/loggingProvider.js";
 import chalk from "chalk";
 
 const { PORT = 8181 } = process.env;

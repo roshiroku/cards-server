@@ -1,5 +1,5 @@
-import { validation } from "../config";
-import * as joi from "./providers/joi/users";
+import { validation } from "../config.js";
+import * as joi from "./providers/joi/users.js";
 
 const providers = { joi };
 const {

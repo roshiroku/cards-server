@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { email, image, password, phone, number, string, boolean, handleError } from "./schema";
+import { email, image, password, phone, number, string, boolean, handleError } from "./schema.js";
 
 export const updateProfileSchema = {
   name: Joi.object({
