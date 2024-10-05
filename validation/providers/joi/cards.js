@@ -8,15 +8,15 @@ export const cardSchema = {
   phone: phone(true),
   email: email(true),
   web: url(),
-  image: Joi.object(image()).required(),
-  address: Joi.object({
+  image: image(),
+  address: {
     state: string(),
     country: string(true),
     city: string(true),
     street: string(true),
     houseNumber: number(true),
     zip: number(),
-  }).required(),
+  },
 };
 
 export function validateCard(input) {

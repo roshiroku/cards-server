@@ -2,21 +2,21 @@ import Joi from "joi";
 import { email, image, password, phone, number, string, boolean, handleError } from "./schema.js";
 
 export const updateProfileSchema = {
-  name: Joi.object({
+  name: {
     first: string(true),
     middle: string(),
     last: string(true),
-  }).required(),
+  },
   phone: phone(true),
-  image: Joi.object(image()).required(),
-  address: Joi.object({
+  image: image(),
+  address: {
     state: string(),
     country: string(true),
     city: string(true),
     street: string(true),
     houseNumber: number(true),
     zip: number(),
-  }).required(),
+  },
 };
 
 export const registerSchema = {
