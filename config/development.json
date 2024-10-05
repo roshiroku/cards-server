@@ -1,0 +1,127 @@
+{
+  "env": "development",
+  "cors": {
+    "origin": [
+      "http://127.0.0.1:5500",
+      "http://localhost:5500",
+      "http://localhost:5173"
+    ]
+  },
+  "defaultData": {
+    "users": [
+      {
+        "name": {
+          "first": "Admin",
+          "middle": "",
+          "last": "User"
+        },
+        "email": "admin@example.com",
+        "password": "AdminPassword123!",
+        "phone": "012-3456789",
+        "isAdmin": true,
+        "isBusiness": false,
+        "address": {
+          "state": "State Admin",
+          "country": "Country Admin",
+          "city": "City Admin",
+          "street": "Street Admin",
+          "houseNumber": 1,
+          "zip": 12345
+        }
+      },
+      {
+        "name": {
+          "first": "Business",
+          "middle": "",
+          "last": "User"
+        },
+        "email": "business@example.com",
+        "password": "BusinessPassword123!",
+        "phone": "012-3456789",
+        "isAdmin": false,
+        "isBusiness": true,
+        "address": {
+          "state": "State Business",
+          "country": "Country Business",
+          "city": "City Business",
+          "street": "Street Business",
+          "houseNumber": 2,
+          "zip": 12345
+        }
+      },
+      {
+        "name": {
+          "first": "Normal",
+          "middle": "",
+          "last": "User"
+        },
+        "email": "user@example.com",
+        "password": "UserPassword123!",
+        "phone": "012-3456789",
+        "isAdmin": false,
+        "isBusiness": false,
+        "address": {
+          "state": "State Normal",
+          "country": "Country Normal",
+          "city": "City Normal",
+          "street": "Street Normal",
+          "houseNumber": 3,
+          "zip": 12345
+        }
+      }
+    ],
+    "cards": [
+      {
+        "title": "Card 1",
+        "subtitle": "Subtitle 1",
+        "description": "Description for Card 1",
+        "phone": "012-3456789",
+        "email": "card1@example.com",
+        "web": "https://card1.com",
+        "address": {
+          "state": "State 1",
+          "country": "Country 1",
+          "city": "City 1",
+          "street": "Street 1",
+          "houseNumber": 1,
+          "zip": 12345
+        },
+        "bizNumber": 1
+      },
+      {
+        "title": "Card 2",
+        "subtitle": "Subtitle 2",
+        "description": "Description for Card 2",
+        "phone": "012-3456789",
+        "email": "card2@example.com",
+        "web": "https://card2.com",
+        "address": {
+          "state": "State 2",
+          "country": "Country 2",
+          "city": "City 2",
+          "street": "Street 2",
+          "houseNumber": 2,
+          "zip": 12345
+        },
+        "bizNumber": 2
+      },
+      {
+        "title": "Card 3",
+        "subtitle": "Subtitle 3",
+        "description": "Description for Card 3",
+        "phone": "012-3456789",
+        "email": "card3@example.com",
+        "web": "https://card3.com",
+        "address": {
+          "state": "State 3",
+          "country": "Country 3",
+          "city": "City 3",
+          "street": "Street 3",
+          "houseNumber": 3,
+          "zip": 12345
+        },
+        "bizNumber": 3
+      }
+    ]
+  }
+}

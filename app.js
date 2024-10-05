@@ -6,6 +6,7 @@ import cardsController from "./controllers/cardsController.js";
 import cors from "./middleware/corsMiddleware.js";
 import logging from "./middleware/loggingMiddleware.js";
 import { info } from "./logging/loggingProvider.js";
+import seedDatabase from "./seed.js";
 
 const { PORT = 8181 } = process.env;
 
@@ -20,7 +21,8 @@ app.use("/cards", cardsController);
 
 app.use(error);
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   info("Listening to port " + PORT);
-  connect();
+  await connect();
+  await seedDatabase();
 });
