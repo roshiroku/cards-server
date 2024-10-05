@@ -10,7 +10,12 @@
     "provider": "joi"
   },
   "logging": {
-    "provider": "morgan"
+    "provider": "morgan",
+    "format": "custom",
+    "colors": {
+      "success": "cyanBright",
+      "error": "redBright"
+    }
   },
   "cors": {
     "origin": [
