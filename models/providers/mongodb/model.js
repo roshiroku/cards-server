@@ -1,8 +1,8 @@
-import { model } from "mongoose";
+import { model, Schema } from "mongoose";
 import { createError } from "../../../utils/errorUtils.js";
 
 export default function (name, schema) {
-  const Model = model(name, schema);
+  const Model = model(name, new Schema(schema));
 
   return {
     Model,
