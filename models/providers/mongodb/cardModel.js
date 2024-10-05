@@ -18,10 +18,10 @@ const schema = {
     houseNumber: number(true),
     zip: number(),
   },
-  bizNumber: number(true),
+  bizNumber: { ...number(true), unique: true },
   likes: [Schema.Types.ObjectId],
   createdAt: { type: Date, default: Date.now },
   user_id: { type: Schema.Types.ObjectId, required: true },
 };
 
-export const { Model, find, findById, add, edit, remove } = model("card", schema);
+export const { Model, count, find, findOne, findById, add, edit, remove } = model("card", schema);

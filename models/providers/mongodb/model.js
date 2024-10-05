@@ -6,8 +6,14 @@ export default function (name, schema) {
 
   return {
     Model,
+    count() {
+      return handleErrors(() => Model.countDocuments());
+    },
     find(filter) {
       return handleErrors(() => Model.find(filter));
+    },
+    findOne(filter) {
+      return handleErrors(() => Model.findOne(filter));
     },
     findById(id) {
       return handleErrors(() => Model.findById(id));
@@ -28,6 +34,6 @@ export async function handleErrors(cb) {
   try {
     return await cb();
   } catch (e) {
-    throw createError({ validator: "Mongoose", status: 500, ...e });
+    throw createError({ validator: "Mongoose", status: 500, message: e.message });
   }
 }

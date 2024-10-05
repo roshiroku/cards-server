@@ -24,4 +24,4 @@ const schema = {
   createdAt: { type: Date, default: Date.now },
 };
 
-export const { Model, find, findById, add, edit, remove } = model("user", schema);
+export const { Model, count, find, findOne, findById, add, edit, remove } = model("user", schema);

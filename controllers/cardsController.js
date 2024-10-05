@@ -29,8 +29,9 @@ cardsController.get("/:id", loadCard, errorBoundary(async (_, res) => {
 
 /** @action Create new card */
 cardsController.post("/", business, errorBoundary(async (req, res) => {
+  const { _id: user_id } = res.locals.auth;
   const data = validateCard(req.body);
-  const card = await Card.add(data);
+  const card = await Card.create({ ...data, user_id });
   res.status(200).send(card);
 }));
 

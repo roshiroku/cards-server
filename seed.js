@@ -30,7 +30,7 @@ export default async function seedDatabase() {
     if (defaultCards?.length && businessUsers.length) {
       await Promise.all(defaultCards.map(card => {
         const user_id = businessUsers[Math.floor(Math.random() * businessUsers.length)]._id;
-        return Card.add({ ...card, user_id });
+        return Card.create({ ...card, user_id });
       }));
       success("Cards seeded successfully.");
     }
