@@ -5,20 +5,24 @@ import * as mongodb from "./providers/mongodb/userModel.js";
 import bcryptjs from "bcryptjs";
 
 const providers = { mongodb };
-const User = providers[db.provider];
+const { find, findById, add, edit, remove } = providers[db.provider];
 
-User.register = async ({ password, ...data }) => {
-  data.password = await bcryptjs.hash(password, 10);
-  const user = await User.add(data);
-  return user;
-};
+export default {
+  find,
+  findById,
+  add,
+  edit,
+  remove,
+  async register({ password, ...data }) {
+    data.password = await bcryptjs.hash(password, 10);
+    const user = await add(data);
+    return user;
+  },
+  async login(email, password) {
+    const user = await find({ email });
 
-User.login = async (email, password) => {
-  const user = await User.find({ email });
-
-  if (user && bcryptjs.compareSync(password, user.password)) {
-    return generateToken(pick(user, ["_id", "isBusiness", "isAdmin"]));
+    if (user && bcryptjs.compareSync(password, user.password)) {
+      return generateToken(pick(user, ["_id", "isBusiness", "isAdmin"]));
+    }
   }
 };
-
-export default User;
