@@ -13,6 +13,7 @@
     "provider": "morgan",
     "format": "custom",
     "colors": {
+      "info": "yellow",
       "success": "cyanBright",
       "error": "redBright"
     }
