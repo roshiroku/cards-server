@@ -1,7 +1,6 @@
-import { db } from "../config";
-import * as morgan from "./providers/morgan";
+import { logging } from "../config";
+import morgan from "./providers/morgan";
 
 const providers = { morgan };
-const { } = providers[db.provider];
 
-export { };
+export default providers[logging.provider];
