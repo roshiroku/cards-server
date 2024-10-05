@@ -19,7 +19,7 @@ export default {
     return user;
   },
   async login(email, password) {
-    const user = await find({ email });
+    const [user] = await find({ email });
 
     if (user && bcryptjs.compareSync(password, user.password)) {
       return generateToken(pick(user, ["_id", "isBusiness", "isAdmin"]));
