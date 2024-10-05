@@ -1,0 +1,62 @@
+[
+  {
+    "name": {
+      "first": "Admin",
+      "middle": "",
+      "last": "User"
+    },
+    "email": "admin@example.com",
+    "password": "AdminPassword123!",
+    "phone": "012-3456789",
+    "isAdmin": true,
+    "isBusiness": false,
+    "address": {
+      "state": "State Admin",
+      "country": "Country Admin",
+      "city": "City Admin",
+      "street": "Street Admin",
+      "houseNumber": 1,
+      "zip": 12345
+    }
+  },
+  {
+    "name": {
+      "first": "Business",
+      "middle": "",
+      "last": "User"
+    },
+    "email": "business@example.com",
+    "password": "BusinessPassword123!",
+    "phone": "012-3456789",
+    "isAdmin": false,
+    "isBusiness": true,
+    "address": {
+      "state": "State Business",
+      "country": "Country Business",
+      "city": "City Business",
+      "street": "Street Business",
+      "houseNumber": 2,
+      "zip": 12345
+    }
+  },
+  {
+    "name": {
+      "first": "Normal",
+      "middle": "",
+      "last": "User"
+    },
+    "email": "user@example.com",
+    "password": "UserPassword123!",
+    "phone": "012-3456789",
+    "isAdmin": false,
+    "isBusiness": false,
+    "address": {
+      "state": "State Normal",
+      "country": "Country Normal",
+      "city": "City Normal",
+      "street": "Street Normal",
+      "houseNumber": 3,
+      "zip": 12345
+    }
+  }
+]
