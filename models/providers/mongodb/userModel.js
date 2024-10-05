@@ -1,6 +1,5 @@
-import { Schema } from "mongoose";
 import model from "./model.js";
-import { email, image, number, phone, string } from "./schema.js";
+import { boolean, email, image, number, phone, string } from "./schema.js";
 
 const schema = {
   name: {
@@ -20,6 +19,9 @@ const schema = {
     houseNumber: number(true),
     zip: number(),
   },
+  isAdmin: boolean(),
+  isBusiness: boolean(),
+  createdAt: { type: Date, default: Date.now },
 };
 
 export const { Model, find, findById, add, edit, remove } = model("user", schema);

@@ -1,3 +1,7 @@
+export function boolean($default = false) {
+  return { type: Boolean, default: $default };
+}
+
 export function number(required = false) {
   return { type: Number, required };
 }
