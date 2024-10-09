@@ -1,11 +1,12 @@
 import Joi from "joi";
+import { createError } from "../../../utils/errorUtils.js";
 
-export function boolean(required = true) {
+export function boolean(required = false) {
   const validator = Joi.boolean();
   return required ? validator.required() : validator.allow("");
 }
 
-export function number(required = true) {
+export function number(required = false) {
   const validator = Joi.number();
   return required ? validator.required() : validator.allow("");
 }
