@@ -1,6 +1,10 @@
 {
   "db": {
-    "provider": "mongodb"
+    "provider": "mongodb",
+    "seed": {
+      "cards": "./seed/cards.json",
+      "users": "./seed/users.json"
+    }
   },
   "auth": {
     "provider": "jwt"

@@ -3,18 +3,19 @@ import path from "path";
 import * as log from "./logging/loggingProvider.js";
 import Card from "./models/Card.js";
 import User from "./models/User.js";
+import { db } from "./config.js";
 
-const USERS_PATH = path.resolve("./seed/users.json");
-const CARDS_PATH = path.resolve("./seed/cards.json");
+const USERS_PATH = db.seed?.users && path.resolve(db.seed.users);
+const CARDS_PATH = db.seed?.cards && path.resolve(db.seed.cards);
 
 export default async function seedDatabase() {
   try {
-    const usersFile = await fs.readFile(USERS_PATH, "utf-8");
-    const cardsFile = await fs.readFile(CARDS_PATH, "utf-8");
-    const defaultUsers = JSON.parse(usersFile);
-    const defaultCards = JSON.parse(cardsFile);
+    const usersFile = USERS_PATH && await fs.readFile(USERS_PATH, "utf-8");
+    const cardsFile = CARDS_PATH && await fs.readFile(CARDS_PATH, "utf-8");
+    const defaultUsers = usersFile && JSON.parse(usersFile);
+    const defaultCards = cardsFile && JSON.parse(cardsFile);
     let seeded = false;
-
+    
     if (defaultUsers?.length) {
       const existingUsers = await User.find();
 
