@@ -1,6 +1,7 @@
 import { generateToken } from "../auth/authProvider.js";
 import { db } from "../config.js";
 import { pick } from "../utils/objectUtils.js";
+import Card from "./Card.js";
 import * as mongodb from "./providers/mongodb/userModel.js";
 import bcryptjs from "bcryptjs";
 
@@ -15,9 +16,18 @@ export default {
   add,
   edit,
   async remove(id) {
-    /** @todo remove cards created by user */
-    /** @todo remove card likes by user */
-    return await remove(id);
+    const user = await remove(id);
+    const cards = await Card.find({ user_id: id });
+    const likedCards = await Card.find({ likes: id });
+
+    await Promise.all(cards.map(({ _id }) => Card.remove(_id)));
+
+    await Promise.all(likedCards.map(card => {
+      card.likes = card.likes.filter(userId => userId != id);
+      return Card.edit(card._id, { likes: card.likes });
+    }));
+
+    return user;
   },
   async register({ password, ...data }) {
     data.password = await bcryptjs.hash(password, 10);
