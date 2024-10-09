@@ -12,8 +12,8 @@ const providers = { morgan };
 
 export const {
   middleware,
-  write = console.log,
+  write = message => logging && console.log(message),
   info = message => write(format.info(message)),
   success = message => write(format.success(message)),
   error = message => write(format.error(message)),
-} = providers[logging.provider];
+} = providers[logging.provider] || {};

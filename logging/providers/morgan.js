@@ -17,7 +17,7 @@ function customCallback(tokens, req, res) {
   return res.statusCode < 400 ? format.success(message) : format.error(message);
 }
 
-export const middleware = morgan(logging.format == "custom" ? (
+export const middleware = logging && morgan(logging.format == "custom" ? (
   customCallback
 ) : (
   logging.format
