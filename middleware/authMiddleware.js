@@ -1,7 +1,7 @@
 import { errorBoundary, errorUnauthenticated } from "../utils/errorUtils.js";
 import { verifyToken } from "../auth/authProvider.js";
 
-export default errorBoundary((req, res) => {
+export default errorBoundary((req, res, next) => {
   const user = auth(req, res);
 
   if (!user) {
@@ -9,6 +9,8 @@ export default errorBoundary((req, res) => {
   }
 
   res.locals.auth = user;
+
+  next();
 });
 
 export function auth(req, res) {

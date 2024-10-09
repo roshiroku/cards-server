@@ -3,7 +3,7 @@ import { errorBoundary, errorNotFound } from "../utils/errorUtils.js";
 import { auth } from "./authMiddleware.js";
 import authorizeMiddleware, { isAdmin } from "./authorizeMiddleware.js";
 
-export const loadUserMiddleware = errorBoundary(async (req, res) => {
+export const loadUserMiddleware = errorBoundary(async (req, res, next) => {
   const user = await User.findById(req.params.id);
 
   if (!user) {
@@ -11,6 +11,8 @@ export const loadUserMiddleware = errorBoundary(async (req, res) => {
   }
 
   res.locals.user = user;
+  
+  next();
 });
 
 export const isProfileOwnerMiddleware = authorizeMiddleware(isProfileOwner);

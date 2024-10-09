@@ -3,7 +3,7 @@ import { errorBoundary, errorNotFound } from "../utils/errorUtils.js";
 import { auth } from "./authMiddleware.js";
 import authorizeMiddleware, { isAdmin } from "./authorizeMiddleware.js";
 
-export const loadCardMiddleware = errorBoundary(async (req, res) => {
+export const loadCardMiddleware = errorBoundary(async (req, res, next) => {
   const card = await Card.findById(req.params.id);
 
   if (!card) {
@@ -11,6 +11,8 @@ export const loadCardMiddleware = errorBoundary(async (req, res) => {
   }
 
   res.locals.card = card;
+
+  next();
 });
 
 export const isCardOwnerMiddleware = authorizeMiddleware(isCardOwner);
