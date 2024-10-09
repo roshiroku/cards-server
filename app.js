@@ -26,3 +26,5 @@ app.listen(PORT, async () => {
   await connect();
   await seedDatabase();
 });
+
+export default app;
