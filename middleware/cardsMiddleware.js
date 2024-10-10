@@ -3,29 +3,27 @@ import { errorBoundary, errorNotFound } from "../utils/errorUtils.js";
 import { auth } from "./authMiddleware.js";
 import authorizeMiddleware, { isAdmin } from "./authorizeMiddleware.js";
 
-export const loadCardMiddleware = errorBoundary(async (req, res, next) => {
-  const card = await Card.findById(req.params.id);
-
-  if (!card) {
+export const loadCardMiddleware = errorBoundary(async (req, res) => {
+  if (!await getCard(req, res)) {
     throw errorNotFound("Card not found");
   }
-
-  res.locals.card = card;
-
-  next();
 });
 
 export const isCardOwnerMiddleware = authorizeMiddleware(isCardOwner);
 
-export const isCardOwnerOrAdminMiddleware = authorizeMiddleware(async (req, res) => isAdmin(req, res) || await isCardOwner(req, res));
+export const isCardOwnerOrAdminMiddleware = authorizeMiddleware(async (req, res) => await isAdmin(req, res) || await isCardOwner(req, res));
 
-export async function isCardOwner(req, res) {
+export async function getCard(req, res) {
   if (!res.locals.card && req.params.id) {
     res.locals.card = await Card.findById(req.params.id);
   }
 
-  const card = res.locals.card;
-  const user = auth(req, res);
+  return res.locals.card;
+}
 
-  return card && user && card?.user_id == user?._id;
+export async function isCardOwner(req, res) {
+  const card = await getCard(req, res);
+  const user = await auth(req, res);
+  
+  return card && user && `${card?.user_id}` == `${user?._id}`;
 }
