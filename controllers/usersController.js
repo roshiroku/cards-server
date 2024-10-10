@@ -5,6 +5,7 @@ import { validateLogin, validateRegister, validateUpdateProfile } from "../valid
 import { omit, pick } from "../utils/objectUtils.js";
 import { isAdminMiddleware as admin } from "../middleware/authorizeMiddleware.js";
 import { loadUserMiddleware as loadUser, isProfileOwnerMiddleware as profileOwner, isProfileOwnerOrAdminMiddleware as profileOwnerOrAdmin } from "../middleware/usersMiddleware.js";
+import auth from "../middleware/authMiddleware.js";
 
 const usersController = Router();
 
@@ -28,19 +29,19 @@ usersController.post("/login", errorBoundary(async (req, res) => {
 }));
 
 /** @action Get all users */
-usersController.get("/", admin, errorBoundary(async (_, res) => {
+usersController.get("/", [auth, admin], errorBoundary(async (_, res) => {
   const users = await User.find();
   res.status(200).send(users.map(user => omit(user, ["password"])));
 }));
 
 /** @action Get user */
-usersController.get("/:id", [loadUser, profileOwnerOrAdmin], errorBoundary(async (_, res) => {
+usersController.get("/:id", [auth, profileOwnerOrAdmin, loadUser], errorBoundary(async (_, res) => {
   const user = res.locals.user;
   res.status(200).send(omit(user, ["password"]));
 }));
 
 /** @action Edit user */
-usersController.put("/:id", [loadUser, profileOwner], errorBoundary(async (req, res) => {
+usersController.put("/:id", [auth, profileOwner, loadUser], errorBoundary(async (req, res) => {
   const { id } = req.params;
   const data = validateUpdateProfile(req.body);
   const user = await User.edit(id, data);
@@ -48,14 +49,14 @@ usersController.put("/:id", [loadUser, profileOwner], errorBoundary(async (req, 
 }));
 
 /** @action Change isBusiness status */
-usersController.patch("/:id", [loadUser, profileOwner], errorBoundary(async (_, res) => {
+usersController.patch("/:id", [auth, profileOwner, loadUser], errorBoundary(async (_, res) => {
   const { _id, isBusiness } = res.locals.user;
   const user = await User.edit(_id, { isBusiness: !isBusiness });
   res.status(200).send(omit(user, ["password"]));
 }));
 
 /** @action Delete user */
-usersController.delete("/:id", [loadUser, profileOwnerOrAdmin], errorBoundary(async (req, res) => {
+usersController.delete("/:id", [auth, profileOwnerOrAdmin, loadUser], errorBoundary(async (req, res) => {
   const { id } = req.params;
   const user = await User.remove(id);
   res.status(200).send(omit(user, ["password"]));
