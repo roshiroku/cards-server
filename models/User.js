@@ -17,15 +17,15 @@ export default {
   edit,
   async remove(id) {
     const user = await remove(id);
-    const cards = await Card.find({ user_id: id });
     const likedCards = await Card.find({ likes: id });
-
-    await Promise.all(cards.map(({ _id }) => Card.remove(_id)));
+    const cards = await Card.find({ user_id: id });
 
     await Promise.all(likedCards.map(card => {
       card.likes = card.likes.filter(userId => userId != id);
       return Card.edit(card._id, { likes: card.likes });
     }));
+
+    await Promise.all(cards.map(({ _id }) => Card.remove(_id)));
 
     return user;
   },

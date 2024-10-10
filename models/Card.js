@@ -28,7 +28,7 @@ export default {
   },
   toggleLike(card, userId) {
     const { _id, likes } = card;
-    const index = likes.indexOf(userId);
+    const index = likes.findIndex(id => `${id}` == `${userId}`);
 
     index == -1 ? likes.push(userId) : likes.splice(index, 1);
 
