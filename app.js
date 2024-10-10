@@ -13,8 +13,8 @@ const { PORT = 8181 } = process.env;
 const app = express();
 
 app.use(cors);
-app.use(express.json());
 app.use(logging);
+app.use(express.json());
 
 app.use("/users", usersController);
 app.use("/cards", cardsController);
