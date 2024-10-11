@@ -3,22 +3,19 @@ import { now } from "../../utils/timeUtils.js";
 import { logging } from "../../config.js";
 import { format } from "../loggingProvider.js";
 
-function customCallback(tokens, req, res) {
-  const { date, time } = now();
-  const message = [
-    `[${date} ${time}]`,
-    tokens.method(req, res),
-    tokens.url(req, res),
-    tokens.status(req, res),
-    "-",
-    `${tokens["response-time"](req, res)}ms`,
-  ].join(" ");
+morgan.token("date-format", (_, __, arg) => {
+  const { year, month, day, hours, minutes, seconds } = now();
+  return arg.replace("yyyy", year)
+    .replace("MM", month)
+    .replace("dd", day)
+    .replace("HH", hours)
+    .replace("mm", minutes)
+    .replace("ss", seconds);
+});
 
+const parse = logging && morgan.compile(logging.format);
+
+export const middleware = logging && morgan((tokens, req, res) => {
+  const message = parse(tokens, req, res);
   return res.statusCode < 400 ? format.success(message) : format.error(message);
-}
-
-export const middleware = logging && morgan(logging.format == "custom" ? (
-  customCallback
-) : (
-  logging.format
-));
+});

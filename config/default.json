@@ -14,7 +14,7 @@
   },
   "logging": {
     "provider": "morgan",
-    "format": "custom",
+    "format": "[:date-format[yyyy-MM-dd HH:mm:ss]] :method :url :status - :response-time ms",
     "colors": {
       "info": "yellow",
       "success": "cyanBright",
