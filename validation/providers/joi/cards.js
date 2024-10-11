@@ -19,8 +19,18 @@ export const cardSchema = {
   },
 };
 
+export const bizNumberSchema = {
+  bizNumber: number(true)
+};
+
 export function validateCard(input) {
   const { error } = Joi.object(cardSchema).validate(input);
   error && handleError(error.details[0].message);
   return input;
+}
+
+export function validateBizNumber(bizNumber) {
+  const { error } = Joi.object(bizNumberSchema).validate({ bizNumber });
+  error && handleError(error.details[0].message);
+  return bizNumber;
 }

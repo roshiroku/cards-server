@@ -1,10 +1,10 @@
 import { Router } from "express";
 import { errorBoundary } from "../utils/errorUtils.js";
 import Card from "../models/Card.js";
-import { validateCard } from "../validation/cardsValidation.js";
+import { validateBizNumber, validateCard } from "../validation/cardsValidation.js";
 import auth from "../middleware/authMiddleware.js";
 import { isCardOwnerMiddleware as cardOwner, isCardOwnerOrAdminMiddleware as cardOwnerOrAdmin, loadCardMiddleware as loadCard } from "../middleware/cardsMiddleware.js";
-import { isBusinessMiddleware as business } from "../middleware/authorizeMiddleware.js";
+import { isBusinessMiddleware as business, isAdminMiddleware as admin } from "../middleware/authorizeMiddleware.js";
 
 const cardsController = Router();
 
@@ -47,6 +47,14 @@ cardsController.put("/:id", [auth, loadCard, cardOwner], errorBoundary(async (re
 cardsController.patch("/:id", [auth, loadCard], errorBoundary(async (_, res) => {
   const { _id } = res.locals.auth;
   const card = await Card.toggleLike(res.locals.card, _id);
+  res.status(200).send(card);
+}));
+
+/** @action Edit card bizNumber */
+cardsController.patch("/:id/biz-number", [auth, admin, loadCard], errorBoundary(async (req, res) => {
+  const { id } = req.params;
+  const bizNumber = await validateBizNumber(req.body.bizNumber);
+  const card = await Card.edit(id, { bizNumber });
   res.status(200).send(card);
 }));
 

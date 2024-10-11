@@ -1,9 +1,8 @@
 import { axios, test } from "../utils/testUtils.js";
 import { expect } from "chai";
 import User from "../models/User.js";
-import Card from "../models/Card.js";
 
-test("Non-Business User Cards API Endpoints", ({ adminUser, businessUser, regularUser, otherUser }) => {
+test("Non-Business User Cards API Endpoints", ({ businessUser, regularUser, otherUser }) => {
   it("should not allow a non-business user to create a card", async () => {
     const response = await axios.post("/cards", otherUser.cardData, {
       headers: { "x-auth-token": regularUser.token }
@@ -115,13 +114,6 @@ test("Non-Business User Cards API Endpoints", ({ adminUser, businessUser, regula
     expect(response.status).to.equal(401);
   });
 
-  it("should not allow a non-owner/non-admin to delete a card", async () => {
-    const response = await axios.delete(`/cards/${businessUser.card._id}`, {
-      headers: { "x-auth-token": regularUser.token }
-    });
-    expect(response.status).to.equal(403);
-  });
-
   it("should allow any user to delete their own card", async () => {
     let response = await axios.delete(`/cards/${regularUser.card._id}`, {
       headers: { "x-auth-token": regularUser.token }
@@ -132,28 +124,10 @@ test("Non-Business User Cards API Endpoints", ({ adminUser, businessUser, regula
     expect(response.status).to.equal(404);
   });
 
-  it("should allow an admin to delete any user's card", async () => {
-    let response = await axios.delete(`/cards/${businessUser.card._id}`, {
-      headers: { "x-auth-token": adminUser.token }
-    });
-    expect(response.status).to.equal(200);
-
-    response = await axios.get(`/cards/${businessUser.card._id}`);
-    expect(response.status).to.equal(404);
-  });
-
   it("should remove cards when a user is deleted", async () => {
-    // Create other card
-    const otherCard = await Card.create({ ...businessUser.cardData, user_id: businessUser.user._id });
-
-    // Delete the business user directly using the model
     await User.remove(businessUser.user._id);
 
-    // Retrieve the card and expect 404 since it should be removed
-    const response = await axios.get(`/cards/${otherCard._id}`);
+    const response = await axios.get(`/cards/${businessUser.card._id}`);
     expect(response.status).to.equal(404);
-
-    // Cleanup
-    await Card.remove(otherCard._id);
   });
-}, { admin: true, business: "card", user: "card" });
+}, { business: "card", user: "card" });

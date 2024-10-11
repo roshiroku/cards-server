@@ -1,8 +1,8 @@
 import { expect } from "chai";
 import { axios, test } from "../utils/testUtils.js";
-import Card from "../models/Card.js";
+import Card, { generateBizNumber } from "../models/Card.js";
 
-test("Business User Cards API Endpoints", ({ businessUser }) => {
+test("Business User and Admin Cards API Endpoints", ({ adminUser, businessUser, regularUser }) => {
   let cardId;
 
   it("should allow a business user to create a card", async () => {
@@ -22,29 +22,47 @@ test("Business User Cards API Endpoints", ({ businessUser }) => {
     expect(response.data).to.include("email");
   });
 
-  it("should allow a business user to edit their card", async () => {
-    const updatedCardData = {
-      ...businessUser.cardData,
-      title: "Updated Business Card",
-      description: "Updated Description"
-    };
-    const response = await axios.put(`/cards/${cardId}`, updatedCardData, {
-      headers: { "x-auth-token": businessUser.token }
+  it("should allow an admin to edit a card's bizNumber if not already in use", async () => {
+    const bizNumber = await generateBizNumber();
+    const response = await axios.patch(`/cards/${cardId}/biz-number`, { bizNumber }, {
+      headers: { "x-auth-token": adminUser.token }
     });
     expect(response.status).to.equal(200);
-    expect(response.data.title).to.equal("Updated Business Card");
-    expect(response.data.description).to.equal("Updated Description");
+    expect(response.data.bizNumber).to.equal(bizNumber);
   });
 
-  it("should allow a business user to delete their own card", async () => {
-    let response = await axios.delete(`/cards/${cardId}`, {
+  it("should not allow editing a card's bizNumber if it is already in use", async () => {
+    const bizNumber = regularUser.card.bizNumber;
+    const response = await axios.patch(`/cards/${cardId}/biz-number`, { bizNumber }, {
+      headers: { "x-auth-token": adminUser.token }
+    });
+    expect(response.status).to.equal(400);
+    expect(response.data).to.include("bizNumber");
+  });
+
+  it("should not allow a non-admin user to edit a card's bizNumber", async () => {
+    const bizNumber = await generateBizNumber();
+    const response = await axios.patch(`/cards/${cardId}/biz-number`, { bizNumber }, {
       headers: { "x-auth-token": businessUser.token }
+    });
+    expect(response.status).to.equal(403);
+  });
+
+  it("should not allow a non-owner/non-admin to delete a card", async () => {
+    const response = await axios.delete(`/cards/${cardId}`, {
+      headers: { "x-auth-token": regularUser.token }
+    });
+    expect(response.status).to.equal(403);
+  });
+
+  it("should allow an admin to delete any user's card", async () => {
+    let response = await axios.delete(`/cards/${cardId}`, {
+      headers: { "x-auth-token": adminUser.token }
     });
     expect(response.status).to.equal(200);
 
     response = await axios.get(`/cards/${cardId}`);
     expect(response.status).to.equal(404);
-
     await Card.remove(cardId);
   });
-}, { business: true });
+}, { admin: true, business: true, user: "card" });
