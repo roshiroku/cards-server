@@ -22,6 +22,17 @@ test("Non-Business User Cards API Endpoints", ({ adminUser, businessUser, regula
     expect(response.data).to.be.an("array");
   });
 
+  it("should allow a logged in user to retrieve their own cards", async () => {
+    const response = await axios.get("/cards/my-cards", {
+      headers: { "x-auth-token": regularUser.token }
+    });
+    expect(response.status).to.equal(200);
+    expect(response.data).to.be.an("array");
+    response.data.forEach(card => {
+      expect(card.user_id).to.equal(`${regularUser.user._id}`);
+    });
+  });
+
   it("should fail when accessing a non-existent card", async () => {
     const nonExistentCardId = "000000000000000000000000";
     const response = await axios.get(`/cards/${nonExistentCardId}`);
