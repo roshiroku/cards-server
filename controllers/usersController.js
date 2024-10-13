@@ -19,7 +19,7 @@ usersController.post("/", errorBoundary(async (req, res) => {
 /** @action Login */
 usersController.post("/login", errorBoundary(async (req, res) => {
   const { email, password } = validateLogin(req.body);
-  const token = await User.login(email, password);
+  const token = await User.attemptLogin(email, password);
 
   if (!token) {
     throw errorUnauthenticated("Invalid email or password");
