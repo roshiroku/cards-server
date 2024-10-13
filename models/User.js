@@ -3,11 +3,9 @@ import { db } from "../config.js";
 import { pick } from "../utils/objectUtils.js";
 import Card from "./Card.js";
 import LoginAttempts from "./LoginAttempts.js";
-import * as mongodb from "./providers/mongodb/userModel.js";
 import bcryptjs from "bcryptjs";
 
-const providers = { mongodb };
-const { count, find, findOne, findById, add, edit, remove } = providers[db.provider];
+const { count, find, findOne, findById, add, edit, remove } = await import(`./providers/${db.provider}/userModel.js`);
 
 export default {
   count,

@@ -1,7 +1,5 @@
 import { validation } from "../config.js";
-import * as joi from "./providers/joi/cards.js";
 
-const providers = { joi };
-const { validateCard, validateBizNumber } = providers[validation.provider];
+const { validateCard, validateBizNumber } = await import(`./providers/${validation.provider}/cards.js`);
 
 export { validateCard, validateBizNumber };

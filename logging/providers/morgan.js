@@ -1,7 +1,7 @@
 import morgan from "morgan";
 import { now } from "../../utils/timeUtils.js";
 import { logging } from "../../config.js";
-import { format } from "../loggingProvider.js";
+import { format } from "../../utils/loggingUtils.js";
 
 morgan.token("date-format", (_, __, arg) => {
   const { year, month, day, hours, minutes, seconds } = now();

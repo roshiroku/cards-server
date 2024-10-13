@@ -1,9 +1,7 @@
 import { cards as cardsConfig, db } from "../config.js";
 import { randomInt } from "../utils/randomUtils.js";
-import * as mongodb from "./providers/mongodb/cardModel.js";
 
-const providers = { mongodb };
-const { count, find, findOne, findById, add, edit, remove } = providers[db.provider];
+const { count, find, findOne, findById, add, edit, remove } = await import(`./providers/${db.provider}/cardModel.js`);
 const { minBizNumber, maxBizNumber, defaultImage } = cardsConfig;
 
 export default {

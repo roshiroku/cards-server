@@ -1,7 +1,5 @@
 import { auth } from "../config.js";
-import * as jwt from "./providers/jwt.js";
 
-const providers = { jwt };
-const { generateToken, verifyToken } = providers[auth.provider];
+const { generateToken, verifyToken } = await import(`./providers/${auth.provider}.js`);
 
 export { generateToken, verifyToken };

@@ -1,9 +1,7 @@
 import { loginAttempts as loginAttemptsConfig, db } from "../config.js";
 import { errorUnauthorized } from "../utils/errorUtils.js";
-import * as mongodb from "./providers/mongodb/loginAttemptsModel.js";
 
-const providers = { mongodb };
-const { count, find, findOne, findById, add, edit, remove } = providers[db.provider];
+const { count, find, findOne, findById, add, edit, remove } = await import(`./providers/${db.provider}/loginAttemptsModel.js`);
 const { maxAttempts, resetTime: resetHours, banTime: banHours } = loginAttemptsConfig;
 
 const RESET_TIME = resetHours * 60 * 60 * 1000;
