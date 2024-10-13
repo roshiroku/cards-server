@@ -15,7 +15,7 @@ const app = express();
 app.use(cors);
 app.use(logging);
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static("./public"));
 
 app.use("/users", usersController);
 app.use("/cards", cardsController);
