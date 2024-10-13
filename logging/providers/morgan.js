@@ -1,11 +1,12 @@
 import morgan from "morgan";
 import { now } from "../../utils/timeUtils.js";
 import { logging } from "../../config.js";
-import { format } from "../../utils/loggingUtils.js";
+import { logger } from "../../utils/loggingUtils.js";
 
 morgan.token("date-format", (_, __, arg) => {
   const { year, month, day, hours, minutes, seconds } = now();
-  return arg.replace("yyyy", year)
+  return arg
+    .replace("yyyy", year)
     .replace("MM", month)
     .replace("dd", day)
     .replace("HH", hours)
@@ -13,9 +14,17 @@ morgan.token("date-format", (_, __, arg) => {
     .replace("ss", seconds);
 });
 
-const parse = logging && morgan.compile(logging.format);
+morgan.token("error", (_, res) => res.locals.error);
 
-export const middleware = logging && morgan((tokens, req, res) => {
-  const message = parse(tokens, req, res);
-  return res.statusCode < 400 ? format.success(message) : format.error(message);
+const format = typeof logging.format == "string" ? { default: logging.format } : logging.format;
+
+const parse = morgan.compile(format.default);
+const parseError = morgan.compile(format.error || format.default);
+
+export const middleware = morgan((tokens, req, res) => {
+  if (res.statusCode < 400) {
+    logger.success(parse(tokens, req, res));
+  } else {
+    logger.error(parseError(tokens, req, res));
+  }
 });
