@@ -7,7 +7,7 @@
     }
   },
   "auth": {
-    "provider": "jwt"
+    "token": "jwt"
   },
   "validation": {
     "provider": "joi"

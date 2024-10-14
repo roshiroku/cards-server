@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { test, axios } from "../utils/testUtils.js";
-import { verifyToken } from "../auth/authProvider.js";
+import { verifyToken } from "../auth/tokenProvider.js";
 import { loginAttempts as loginAttemptsConfig } from "../config.js";
 
 test("User Login API Endpoints", ({ regularUser }) => {

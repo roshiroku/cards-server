@@ -1,6 +1,6 @@
 import axios from "axios";
 import app from "../app.js";
-import { generateToken } from "../auth/authProvider.js";
+import { generateToken } from "../auth/tokenProvider.js";
 import Card from "../models/Card.js";
 import User from "../models/User.js";
 import { pick } from "./objectUtils.js";

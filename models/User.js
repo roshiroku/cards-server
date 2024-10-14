@@ -1,4 +1,4 @@
-import { generateToken } from "../auth/authProvider.js";
+import { generateToken } from "../auth/tokenProvider.js";
 import { db } from "../config.js";
 import { pick } from "../utils/objectUtils.js";
 import Card from "./Card.js";

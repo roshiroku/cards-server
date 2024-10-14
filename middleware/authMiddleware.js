@@ -1,5 +1,5 @@
 import { errorBoundary, errorUnauthenticated } from "../utils/errorUtils.js";
-import { verifyToken } from "../auth/authProvider.js";
+import { verifyToken } from "../auth/tokenProvider.js";
 import User from "../models/User.js";
 
 export default errorBoundary(async (req, res) => {
