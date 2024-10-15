@@ -1,5 +1,16 @@
+import { auth } from "../../../config.js";
 import model from "./model.js";
 import { boolean, email, image, number, phone, string } from "./schema.js";
+
+function required() {
+  for (const provider of auth.providers || []) {
+    if (this[`${provider}Id`]) {
+      return false;
+    }
+  }
+
+  return true;
+}
 
 const schema = {
   name: {
@@ -7,16 +18,17 @@ const schema = {
     middle: string(),
     last: string(true),
   },
-  phone: phone(true),
+  phone: phone(required),
   email: email(true),
-  password: string(true),
+  password: string(required),
   image: image(),
+  googleId: { ...string(), unique: true, sparse: true },
   address: {
     state: string(),
-    country: string(true),
-    city: string(true),
-    street: string(true),
-    houseNumber: number(true),
+    country: string(required),
+    city: string(required),
+    street: string(required),
+    houseNumber: number(required),
     zip: number(),
   },
   isAdmin: boolean(),

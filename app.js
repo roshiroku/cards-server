@@ -1,6 +1,7 @@
 import express from "express";
 import error from "./middleware/errorMiddleware.js";
 import { connect } from "./db/dbProvider.js";
+import authController from "./controllers/authController.js";
 import usersController from "./controllers/usersController.js";
 import cardsController from "./controllers/cardsController.js";
 import cors from "./middleware/corsMiddleware.js";
@@ -17,6 +18,7 @@ app.use(logging);
 app.use(express.json());
 app.use(express.static("./public"));
 
+app.use(authController);
 app.use("/users", usersController);
 app.use("/cards", cardsController);
 

@@ -7,12 +7,19 @@ export function number(required = false) {
 }
 
 export function string(required = false, maxLength = 256) {
+  const requiredFn = typeof required == "function" ? required : () => required;
+
   return {
     type: String,
     trim: true,
-    minLength: required ? 2 : undefined,
-    maxLength,
-    required,
+    validate: {
+      validator(value) {
+        return !requiredFn.call(this) || (value && value.length > 1);
+      },
+      message: "Path `{PATH}` (`{VALUE}`) is shorter than the minimum allowed length (2)."
+    },
+    required: requiredFn,
+    maxLength
   };
 }
 

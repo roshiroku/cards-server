@@ -36,17 +36,20 @@ export default {
     const user = await add(data);
     return user;
   },
+  generateToken(user) {
+    return generateToken(pick(user, ["_id", "isBusiness", "isAdmin"]));
+  },
   async login(email, password, user = null) {
     user ??= await findOne({ email });
 
-    if (user && bcryptjs.compareSync(password, user.password)) {
-      return generateToken(pick(user, ["_id", "isBusiness", "isAdmin"]));
+    if (user?.password && bcryptjs.compareSync(password, user.password)) {
+      return generateToken(user);
     }
   },
   async attemptLogin(email, password, user = null) {
     user ??= await findOne({ email });
 
-    if (!user) return;
+    if (!user?.password) return;
 
     const token = await LoginAttempts.promise(email, async (resolve, reject) => {
       const token = await this.login(email, password, user);

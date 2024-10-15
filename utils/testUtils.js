@@ -1,16 +1,16 @@
 import axios from "axios";
 import app from "../app.js";
-import { generateToken } from "../auth/tokenProvider.js";
 import Card from "../models/Card.js";
 import User from "../models/User.js";
 import { pick } from "./objectUtils.js";
 import { createServer } from "http";
+import { randomInt } from "./randomUtils.js";
 
 const port = process.env.PORT || 8181;
 const baseURL = `http://localhost:${port}`;
 const instance = axios.create({ baseURL, validateStatus: () => true });
 
-export function test(title, cb, { admin, business, user, other } = {}) {
+export function test(title, cb, { admin, business, user, other, google } = {}) {
   const data = generateTestData();
 
   const updateTestData = async (update, key) => {
@@ -44,6 +44,7 @@ export function test(title, cb, { admin, business, user, other } = {}) {
     await updateTestData(business, "businessUser");
     await updateTestData(user, "regularUser");
     await updateTestData(other, "otherUser");
+    await updateTestData(google, "googleUser");
   });
 
   after(async () => {
@@ -51,6 +52,7 @@ export function test(title, cb, { admin, business, user, other } = {}) {
     await cleanup(business, "businessUser");
     await cleanup(user, "regularUser");
     await cleanup(other, "otherUser");
+    await cleanup(google, "googleUser");
 
     server.close();
   });
@@ -98,13 +100,24 @@ export function generateTestData() {
         title: "Other User Card",
         email: generateEmail("other")
       })
+    },
+    googleUser: {
+      data: {
+        name: { first: "Google", last: "User" },
+        email: generateEmail("google"),
+        googleId: `${randomInt(1e20, 1e21)}`
+      },
+      cardData: generateCardData({
+        title: "Google User Card",
+        email: generateEmail("google")
+      })
     }
   };
 }
 
 export async function createUser(userData) {
-  const user = await User.register(userData);
-  const token = generateToken(pick(user, ["_id", "isBusiness", "isAdmin"]));
+  const user = userData.password ? await User.register(userData) : await User.add(userData);
+  const token = User.generateToken(user);
   return { user, token };
 }
 
