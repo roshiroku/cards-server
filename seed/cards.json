@@ -6,6 +6,10 @@
     "phone": "012-3456789",
     "email": "card1@example.com",
     "web": "https://card1.com",
+    "image": {
+      "url": "",
+      "alt": ""
+    },
     "address": {
       "state": "State 1",
       "country": "Country 1",
@@ -23,6 +27,10 @@
     "phone": "012-3456789",
     "email": "card2@example.com",
     "web": "https://card2.com",
+    "image": {
+      "url": "",
+      "alt": ""
+    },
     "address": {
       "state": "State 2",
       "country": "Country 2",
@@ -40,6 +48,10 @@
     "phone": "012-3456789",
     "email": "card3@example.com",
     "web": "https://card3.com",
+    "image": {
+      "url": "",
+      "alt": ""
+    },
     "address": {
       "state": "State 3",
       "country": "Country 3",

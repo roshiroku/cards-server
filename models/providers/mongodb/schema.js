@@ -6,7 +6,7 @@ export function number(required = false) {
   return { type: Number, required };
 }
 
-export function string(required = false, maxLength = 256) {
+export function string(required = false, maxLength = 256, minLength = 2) {
   const requiredFn = typeof required == "function" ? required : () => required;
 
   return {
@@ -14,7 +14,7 @@ export function string(required = false, maxLength = 256) {
     trim: true,
     validate: {
       validator(value) {
-        return !requiredFn.call(this) || (value && value.length > 1);
+        return !requiredFn.call(this) || (value && value.length > minLength - 1);
       },
       message: "Path `{PATH}` (`{VALUE}`) is shorter than the minimum allowed length (2)."
     },

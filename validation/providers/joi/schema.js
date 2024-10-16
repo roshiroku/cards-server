@@ -16,6 +16,11 @@ export function string(required = false, max = 256) {
   return required ? validator.min(2).required() : validator.allow("");
 }
 
+export function object(schema, required = false) {
+  const validator = Joi.object(schema);
+  return required ? validator.required() : validator;
+}
+
 export function phone(required = false) {
   const validator = Joi.string().ruleset
     .regex(/0[0-9]{1,2}\-?\s?[0-9]{3}\s?[0-9]{4}/)

@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { email, handleError, image, number, phone, string, url } from "./schema.js";
+import { email, handleError, image, number, object, phone, string, url } from "./schema.js";
 
 export const cardSchema = {
   title: string(true),
@@ -9,14 +9,14 @@ export const cardSchema = {
   email: email(true),
   web: url(),
   image: image(),
-  address: {
+  address: object({
     state: string(),
     country: string(true),
     city: string(true),
     street: string(true),
     houseNumber: number(true),
     zip: number(),
-  },
+  }, true)
 };
 
 export const bizNumberSchema = {

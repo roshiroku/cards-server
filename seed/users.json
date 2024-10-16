@@ -10,6 +10,10 @@
     "phone": "012-3456789",
     "isAdmin": true,
     "isBusiness": false,
+    "image": {
+      "url": "",
+      "alt": ""
+    },
     "address": {
       "state": "State Admin",
       "country": "Country Admin",
@@ -30,6 +34,10 @@
     "phone": "012-3456789",
     "isAdmin": false,
     "isBusiness": true,
+    "image": {
+      "url": "",
+      "alt": ""
+    },
     "address": {
       "state": "State Business",
       "country": "Country Business",
@@ -50,6 +58,10 @@
     "phone": "012-3456789",
     "isAdmin": false,
     "isBusiness": false,
+    "image": {
+      "url": "",
+      "alt": ""
+    },
     "address": {
       "state": "State Normal",
       "country": "Country Normal",
