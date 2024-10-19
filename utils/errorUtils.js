@@ -21,7 +21,10 @@ export function errorBoundary(cb) {
   return async (req, res, next) => {
     try {
       await cb(req, res, next);
-      next();
+
+      if (!res.headersSent) {
+        next();
+      }
     } catch (e) {
       next(e);
     }
