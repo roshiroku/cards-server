@@ -2,8 +2,8 @@ export function boolean($default = false) {
   return { type: Boolean, default: $default };
 }
 
-export function number(required = false) {
-  return { type: Number, required };
+export function number(required = false, max = undefined, min = undefined) {
+  return { type: Number, required, max, min };
 }
 
 export function string(required = false, maxLength = 256, minLength = 2) {

@@ -1,6 +1,7 @@
 import { Schema } from "mongoose";
 import model from "./model.js";
 import { email, image, number, phone, string, url } from "./schema.js";
+import { cards } from "../../../config.js";
 
 const schema = {
   title: string(true),
@@ -9,7 +10,16 @@ const schema = {
   phone: phone(),
   email: email(),
   web: url(),
-  image: image(),
+  image: {
+    url: {
+      ...url(),
+      get: v => v || cards.defaultImage
+    },
+    alt: {
+      ...string(),
+      get(v) { return v || this.title; }
+    }
+  },
   address: {
     state: string(),
     country: string(true),
@@ -18,7 +28,7 @@ const schema = {
     houseNumber: number(true),
     zip: number(),
   },
-  bizNumber: { ...number(true), unique: true },
+  bizNumber: { ...number(true, cards.maxBizNumber, cards.minBizNumber), unique: true },
   likes: [Schema.Types.ObjectId],
   createdAt: { type: Date, default: Date.now },
   user_id: { type: Schema.Types.ObjectId, required: true },

@@ -7,7 +7,7 @@ import bcryptjs from "bcryptjs";
 
 const { count, find, findOne, findById, add, edit, remove } = await import(`./providers/${db.provider}/userModel.js`);
 
-export default {
+const User = {
   count,
   find,
   findOne,
@@ -43,7 +43,7 @@ export default {
     user ??= await findOne({ email });
 
     if (user?.password && bcryptjs.compareSync(password, user.password)) {
-      return generateToken(user);
+      return User.generateToken(user);
     }
   },
   async attemptLogin(email, password, user = null) {
@@ -59,3 +59,5 @@ export default {
     return token;
   }
 };
+
+export default User;

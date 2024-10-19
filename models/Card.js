@@ -15,10 +15,6 @@ export default {
   async create(data) {
     const card = await add({
       ...data,
-      image: {
-        url: data.image?.url || defaultImage,
-        alt: data.image?.alt || data.title,
-      },
       bizNumber: await generateBizNumber(),
     });
 
