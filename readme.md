@@ -60,8 +60,8 @@ The **Business Cards Backend** project is designed to handle the backend service
 ### Installation
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/yourusername/business-cards-backend.git
-   cd business-cards-backend
+   git clone https://github.com/roshiroku/cards-server.git
+   cd cards-server
    ```
 2. **Install Dependencies**
    ```bash
