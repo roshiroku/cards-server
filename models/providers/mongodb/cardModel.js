@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 import model from "./model.js";
-import { email, image, number, phone, string, url } from "./schema.js";
+import { email, number, phone, string, url } from "./schema.js";
 import { cards } from "../../../config.js";
 
 const schema = {
