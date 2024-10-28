@@ -23,7 +23,7 @@ The **Business Cards Backend** project is designed to handle the backend service
 - User Registration and Login
 - Google OAuth 2.0 Integration
 - Business Card CRUD Operations
-- Admin Panel for User Management
+- Admin Operations for User Management
 - Environment-Based Configuration
 - Hexagonal Architecture for easy extensibility
 
